@@ -1,0 +1,20 @@
+# Use an official Node.js base image (or any suitable base)
+FROM node:18
+
+# Create app directory
+WORKDIR /app
+
+# Clone your GitHub repository (part1 specifically)
+RUN git clone https://github.com/annKimani-ICS/Kubernetes-Distributed-Systems.git repo
+
+# Copy only the web files (if needed, adjust path)
+WORKDIR /app/repo/part1/web
+
+# Install dependencies if it's a Node app (if not, adjust this step)
+# RUN npm install
+
+# Expose port used by the app
+EXPOSE 8080
+
+# Start the app (update this to the actual start command)
+CMD ["node", "server.js"]

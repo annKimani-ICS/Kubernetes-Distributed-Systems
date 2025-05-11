@@ -1,0 +1,17 @@
+# This is a Kubernetes manifest file for deploying a simple products API application.
+# It includes a  Service resource.
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-db
+  labels:
+    app: widgetario
+    
+spec:
+  selector:
+    app: widgetario
+    component: products-db
+  ports:
+    - port: 5432
+      targetPort: postgres
+  type: ClusterIP

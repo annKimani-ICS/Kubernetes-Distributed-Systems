@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-api
+  labels:
+    app: stock-api
+    kubernetes.courselabs.co: hackathon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock-api
+  template:
+    metadata:
+      labels:
+        app: stock-api
+        kubernetes.courselabs.co: hackathon
+    spec:
+      containers:
+      - name: stock-api
+        image: widgetario/stock-api:22.04
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: "products-db"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASSWORD
+          value: "password"
+        - name: DB_NAME
+          value: "products"
+        volumeMounts:
+        - name: cache
+          mountPath: /cache
+      volumes:
+      - name: cache
+        emptyDir: {}

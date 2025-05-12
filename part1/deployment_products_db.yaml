@@ -23,3 +23,6 @@ spec:
           ports:
             - containerPort: 5432
               name: postgres
+          envFrom:
+            - secretRef:
+                name: products-db-password

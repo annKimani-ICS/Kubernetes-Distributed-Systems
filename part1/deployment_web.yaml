@@ -22,3 +22,14 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          envFrom:
+            - configMapRef:
+                name: web-features
+          volumeMounts:
+            - name: api-config
+              mountPath: "/app/secrets"
+              readOnly: true
+      volumes:
+        - name: api-config
+          secret:
+            secretName: web-api

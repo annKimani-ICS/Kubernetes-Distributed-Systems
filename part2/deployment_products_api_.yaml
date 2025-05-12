@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-api
+  labels:
+    app: products-api
+    kubernetes.courselabs.co: hackathon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-api
+  template:
+    metadata:
+      labels:
+        app: products-api
+        kubernetes.courselabs.co: hackathon
+    spec:
+      containers:
+      - name: products-api
+        image: widgetario/products-api:22.04
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: "products-db"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASSWORD
+          value: "password"
+        - name: DB_NAME
+          value: "products"
+        - name: PRICE_FACTOR
+          valueFrom:
+            configMapKeyRef:
+              name: widgetario-config
+              key: PRICE_FACTOR
